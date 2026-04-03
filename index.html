@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What Degree Should I Pursue? — Ashoka CS</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --ink-2: #444;
+    --ink-3: #888;
+    --paper: #faf8f3;
+    --paper-2: #f2efe8;
+    --paper-3: #e8e4da;
+    --accent: #c0392b;
+    --accent-2: #e67e22;
+    --teal: #1a7a6e;
+    --teal-light: #e8f5f3;
+    --rule: #ddd9d0;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', sans-serif;
+    --mono: 'DM Mono', monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: var(--sans);
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+    z-index: 100;
+    padding: 0 2rem;
+    height: 56px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-brand { font-family: var(--mono); font-size: 12px; color: var(--ink-3); letter-spacing: 0.08em; text-transform: uppercase; }
+  .nav-brand span { color: var(--accent); }
+  .nav-progress { display: flex; gap: 6px; align-items: center; }
+  .nav-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--paper-3); cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .nav-dot.active { background: var(--accent); transform: scale(1.4); }
+  .nav-dot.visited { background: var(--ink-3); }
+
+  /* PAGES */
+  .page { display: none; min-height: 100vh; padding-top: 56px; animation: fadeIn 0.35s ease; }
+  .page.active { display: block; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* HERO */
+  .hero {
+    padding: 5rem 2rem 4rem;
+    max-width: 900px;
+    margin: 0 auto;
+    border-bottom: 1px solid var(--rule);
+  }
+  .hero-kicker { font-family: var(--mono); font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 1.2rem; }
+  .hero h1 { font-family: var(--serif); font-size: clamp(2.2rem, 4.5vw, 3.6rem); line-height: 1.15; color: var(--ink); margin-bottom: 1.4rem; font-weight: 400; }
+  .hero h1 em { font-style: italic; color: var(--accent); }
+  .hero-lead { font-size: 1.05rem; color: var(--ink-2); max-width: 580px; line-height: 1.75; }
+
+  /* CONTENT */
+  .content { max-width: 900px; margin: 0 auto; padding: 3rem 2rem 6rem; }
+
+  .section-block { margin-bottom: 3.5rem; }
+  .section-block h2 { font-family: var(--serif); font-size: 1.75rem; font-weight: 400; margin-bottom: 1rem; color: var(--ink); }
+  .section-block h3 { font-family: var(--sans); font-size: 0.9rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.07em; color: var(--ink-3); margin-bottom: 0.6rem; margin-top: 2rem; }
+  .section-block p { color: var(--ink-2); margin-bottom: 1rem; }
+  .section-block p:last-child { margin-bottom: 0; }
+
+  /* PULL QUOTE */
+  .pull-quote { border-left: 3px solid var(--accent); padding: 1rem 1.5rem; margin: 2rem 0; background: var(--paper-2); }
+  .pull-quote p { font-family: var(--serif); font-size: 1.2rem; color: var(--ink); font-style: italic; margin: 0; }
+
+  /* CARDS */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+  .card { background: var(--paper-2); border: 1px solid var(--rule); padding: 1.25rem 1.25rem 1.5rem; }
+  .card-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-3); margin-bottom: 0.5rem; }
+  .card h4 { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; margin-bottom: 0.5rem; color: var(--ink); }
+  .card p { font-size: 0.875rem; color: var(--ink-2); margin: 0; line-height: 1.6; }
+  .card.accent-card { background: #fdf0ee; border-color: #e8bfba; }
+  .card.teal-card { background: var(--teal-light); border-color: #b3d8d4; }
+  .card.amber-card { background: #fef9ee; border-color: #f0d9a0; }
+
+  /* TIMELINE */
+  .timeline { position: relative; padding-left: 2rem; margin: 1.5rem 0; }
+  .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 1px; background: var(--rule); }
+  .timeline-item { position: relative; margin-bottom: 1.8rem; padding-left: 0.5rem; }
+  .timeline-item::before { content: ''; position: absolute; left: -2rem; top: 6px; width: 8px; height: 8px; border-radius: 50%; background: var(--paper); border: 1.5px solid var(--ink-3); }
+  .timeline-item.highlight::before { background: var(--accent); border-color: var(--accent); }
+  .timeline-year { font-family: var(--mono); font-size: 11px; color: var(--ink-3); letter-spacing: 0.06em; margin-bottom: 0.3rem; }
+  .timeline-item h4 { font-weight: 500; color: var(--ink); margin-bottom: 0.3rem; font-size: 0.95rem; }
+  .timeline-item p { font-size: 0.875rem; color: var(--ink-2); margin: 0; line-height: 1.6; }
+
+  /* STAT ROW */
+  .stat-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); margin: 2rem 0; }
+  .stat-cell { background: var(--paper); padding: 1.25rem 1rem; text-align: center; }
+  .stat-number { font-family: var(--serif); font-size: 2rem; color: var(--ink); line-height: 1; margin-bottom: 0.3rem; }
+  .stat-number span { color: var(--accent); font-size: 1.3rem; }
+  .stat-label { font-size: 0.75rem; color: var(--ink-3); line-height: 1.4; }
+
+  /* DEGREE BADGE */
+  .degree-badge {
+    display: inline-block;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.3rem 0.7rem;
+    border: 1px solid var(--rule);
+    color: var(--ink-3);
+    margin-bottom: 1rem;
+  }
+
+  /* DATA ROW — for structured info */
+  .data-rows { border: 1px solid var(--rule); margin: 1.5rem 0; }
+  .data-row { display: grid; grid-template-columns: 160px 1fr; border-bottom: 1px solid var(--rule); }
+  .data-row:last-child { border-bottom: none; }
+  .data-key { padding: 0.85rem 1rem; background: var(--paper-2); font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; color: var(--ink-3); text-transform: uppercase; display: flex; align-items: flex-start; padding-top: 1rem; }
+  .data-val { padding: 0.85rem 1.25rem; font-size: 0.9rem; color: var(--ink-2); line-height: 1.65; }
+  .data-val strong { color: var(--ink); font-weight: 500; }
+  @media (max-width: 560px) { .data-row { grid-template-columns: 1fr; } .data-key { border-bottom: 1px solid var(--rule); padding-bottom: 0.5rem; } }
+
+  /* TAG PILLS */
+  .tag { display: inline-block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.2rem 0.5rem; margin: 0.15rem; }
+  .tag-low { background: var(--teal-light); color: var(--teal); border: 1px solid #b3d8d4; }
+  .tag-mid { background: #fef9ee; color: #8a6300; border: 1px solid #f0d9a0; }
+  .tag-high { background: #fdf0ee; color: #a93226; border: 1px solid #e8bfba; }
+
+  /* COMPARISON TABLE */
+  .table-wrap { overflow-x: auto; margin: 2rem 0; -webkit-overflow-scrolling: touch; }
+  .compare-table { width: 100%; border-collapse: collapse; font-size: 0.84rem; min-width: 820px; }
+  .compare-table th {
+    background: var(--ink); color: var(--paper);
+    font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 0.85rem 1rem; text-align: left; font-weight: 400; white-space: nowrap;
+  }
+  .compare-table th:first-child { min-width: 130px; }
+  .compare-table td { padding: 0.8rem 1rem; border-bottom: 1px solid var(--rule); color: var(--ink-2); vertical-align: top; line-height: 1.55; }
+  .compare-table tr:nth-child(even) td { background: var(--paper-2); }
+  .compare-table tr:hover td { background: #f0ece3; }
+  .compare-table .row-label { font-weight: 500; color: var(--ink); font-size: 0.875rem; white-space: nowrap; }
+  .compare-table .clickable-row { cursor: pointer; }
+  .compare-table .clickable-row .row-label { color: var(--accent); text-decoration: none; }
+  .compare-table .clickable-row:hover .row-label { text-decoration: underline; }
+  .dep-low { color: var(--teal); font-weight: 500; }
+  .dep-mid { color: #8a6300; font-weight: 500; }
+  .dep-high { color: var(--accent); font-weight: 500; }
+
+  /* INDIA NOTE */
+  .india-note {
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--accent-2);
+    background: var(--paper-2);
+    padding: 1.25rem 1.5rem;
+    margin: 2.5rem 0 0;
+  }
+  .india-note-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent-2); margin-bottom: 0.5rem; }
+  .india-note p { font-size: 0.875rem; color: var(--ink-2); margin: 0; line-height: 1.65; }
+
+  /* EXIT OPTIONS */
+  .exit-block { border: 1px solid #b3d8d4; background: var(--teal-light); padding: 1.25rem 1.5rem; margin: 1.5rem 0; }
+  .exit-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--teal); margin-bottom: 0.5rem; }
+  .exit-block p { font-size: 0.875rem; color: var(--ink-2); margin: 0; line-height: 1.65; }
+
+  /* TOC */
+  .toc { margin: 2rem 0; }
+  .toc-item { display: flex; align-items: center; gap: 1rem; padding: 1rem 0; border-bottom: 1px solid var(--rule); cursor: pointer; transition: color 0.15s; }
+  .toc-item:hover { color: var(--accent); }
+  .toc-item:hover .toc-arrow { opacity: 1; transform: translateX(4px); }
+  .toc-num { font-family: var(--mono); font-size: 11px; color: var(--ink-3); min-width: 2rem; }
+  .toc-title { font-family: var(--serif); font-size: 1.15rem; font-weight: 400; flex: 1; }
+  .toc-meta { font-family: var(--mono); font-size: 10px; color: var(--ink-3); letter-spacing: 0.06em; display: none; }
+  @media (min-width: 500px) { .toc-meta { display: block; } }
+  .toc-arrow { font-size: 1rem; color: var(--accent); opacity: 0; transition: opacity 0.15s, transform 0.15s; }
+
+  /* PAGE NAV */
+  .page-nav { max-width: 900px; margin: 0 auto; padding: 2rem 2rem 4rem; border-top: 1px solid var(--rule); display: flex; justify-content: space-between; align-items: center; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 0.7rem 1.4rem; font-family: var(--sans); font-size: 0.875rem; font-weight: 500; cursor: pointer; border: 1px solid var(--ink); background: transparent; color: var(--ink); transition: background 0.15s, color 0.15s; letter-spacing: 0.01em; }
+  .btn:hover { background: var(--ink); color: var(--paper); }
+  .btn.primary { background: var(--accent); border-color: var(--accent); color: white; }
+  .btn.primary:hover { background: #a93226; border-color: #a93226; }
+  .btn:disabled { opacity: 0.28; cursor: default; pointer-events: none; }
+  .page-label { font-family: var(--mono); font-size: 11px; color: var(--ink-3); letter-spacing: 0.08em; text-align: center; }
+
+  .disclaimer { background: var(--paper-2); border-top: 1px solid var(--rule); padding: 1rem 2rem; font-size: 0.8rem; color: var(--ink-3); text-align: center; line-height: 1.6; }
+
+  @media (max-width: 600px) { .stat-row { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-brand">Ashoka University · <span>CS Higher Ed</span></div>
+  <div class="nav-progress" id="navDots"></div>
+</nav>
+
+<!-- ===================== PAGE 0: INDEX / COMPARISON ===================== -->
+<div class="page active" id="page-0">
+  <div class="hero">
+    <div class="hero-kicker">Section 02 — Degree Types · Post Graduate Office</div>
+    <h1>What degree<br>should I <em>pursue?</em></h1>
+    <p class="hero-lead">A comparison of every postgraduate degree type available in CS, and a deep dive into each one. For students who have decided to pursue higher education and want to understand what they're choosing between.</p>
+  </div>
+
+  <div class="content">
+    <div class="section-block">
+      <h2>At a glance — all degree types</h2>
+      <p>Click any degree to read the full deep dive.</p>
+      <div class="table-wrap">
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Degree</th>
+              <th>Duration</th>
+              <th>Funding</th>
+              <th>Thesis?</th>
+              <th>Advisor role</th>
+              <th>Primary output</th>
+              <th>Financial risk</th>
+              <th>Time risk</th>
+              <th>Typical next step</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="clickable-row" onclick="goTo(1)">
+              <td class="row-label">MS (coursework)</td>
+              <td>1.5–2 years</td>
+              <td>Self-funded</td>
+              <td>No</td>
+              <td class="dep-low">None</td>
+              <td>Courses + capstone</td>
+              <td><span class="tag tag-high">High</span></td>
+              <td><span class="tag tag-low">Low</span></td>
+              <td>Industry role</td>
+            </tr>
+            <tr class="clickable-row" onclick="goTo(2)">
+              <td class="row-label">MS (research)</td>
+              <td>1.5–2.5 years</td>
+              <td>Partial / varies</td>
+              <td>Yes</td>
+              <td class="dep-high">High</td>
+              <td>Thesis</td>
+              <td><span class="tag tag-mid">Medium</span></td>
+              <td><span class="tag tag-mid">Medium</span></td>
+              <td>Industry or PhD</td>
+            </tr>
+            <tr class="clickable-row" onclick="goTo(3)">
+              <td class="row-label">MEng</td>
+              <td>1–2 years</td>
+              <td>Self-funded</td>
+              <td>No</td>
+              <td class="dep-low">Low</td>
+              <td>Design project</td>
+              <td><span class="tag tag-high">High</span></td>
+              <td><span class="tag tag-low">Low</span></td>
+              <td>Industry role</td>
+            </tr>
+            <tr class="clickable-row" onclick="goTo(4)">
+              <td class="row-label">MSE</td>
+              <td>1.5–2 years</td>
+              <td>Self-funded</td>
+              <td>Optional</td>
+              <td class="dep-mid">Low–Moderate</td>
+              <td>Courses ± thesis</td>
+              <td><span class="tag tag-high">High</span></td>
+              <td><span class="tag tag-low">Low</span></td>
+              <td>Industry role</td>
+            </tr>
+            <tr class="clickable-row" onclick="goTo(5)">
+              <td class="row-label">MTech</td>
+              <td>2 years</td>
+              <td>Stipend (India)</td>
+              <td>Yes</td>
+              <td class="dep-high">High</td>
+              <td>Thesis</td>
+              <td><span class="tag tag-low">Low</span></td>
+              <td><span class="tag tag-mid">Medium</span></td>
+              <td>Industry or research</td>
+            </tr>
+            <tr class="clickable-row" onclick="goTo(6)">
+              <td class="row-label">MPhil</td>
+              <td>1–2 years</td>
+              <td>Partial / varies</td>
+              <td>Yes</td>
+              <td class="dep-high">High</td>
+              <td>Short thesis</td>
+              <td><span class="tag tag-mid">Medium</span></td>
+              <td><span class="tag tag-low">Low</span></td>
+              <td>PhD or industry</td>
+            </tr>
+            <tr class="clickable-row" onclick="goTo(7)">
+              <td class="row-label">MRes</td>
+              <td>1 year</td>
+              <td>Partial / varies</td>
+              <td>Yes</td>
+              <td class="dep-high">High</td>
+              <td>Research report</td>
+              <td><span class="tag tag-mid">Medium</span></td>
+              <td><span class="tag tag-low">Low</span></td>
+              <td>PhD or industry</td>
+            </tr>
+            <tr class="clickable-row" onclick="goTo(8)">
+              <td class="row-label">PhD</td>
+              <td>4–6 years</td>
+              <td>Fully funded</td>
+              <td>Yes</td>
+              <td class="dep-high">Central</td>
+              <td>Dissertation + publications</td>
+              <td><span class="tag tag-low">Low</span></td>
+              <td><span class="tag tag-high">High</span></td>
+              <td>Research or faculty</td>
+            </tr>
+            <tr class="clickable-row" onclick="goTo(9)">
+              <td class="row-label">Integrated MS-PhD</td>
+              <td>5–6 years</td>
+              <td>Fully funded</td>
+              <td>Yes</td>
+              <td class="dep-high">Central</td>
+              <td>MS + dissertation</td>
+              <td><span class="tag tag-low">Low</span></td>
+              <td><span class="tag tag-high">High</span></td>
+              <td>Research or faculty</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p style="font-size:0.8rem; color: var(--ink-3); margin-top: 0.5rem;">Click any row to read the full deep dive for that degree.</p>
+    </div>
+
+    <div class="section-block">
+      <h2>How to read this table</h2>
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-label">Financial risk</div>
+          <h4>What you might lose money on</h4>
+          <p>High means you're paying significant tuition with no guarantee of a proportional salary return. Low means the programme is funded — your financial exposure is primarily the salary you're not earning.</p>
+        </div>
+        <div class="card">
+          <div class="card-label">Time risk</div>
+          <h4>What you might lose time on</h4>
+          <p>High means the timeline is uncertain and extends well beyond the nominal duration. Low means the degree has a fixed, predictable end date. A PhD has low financial risk but high time risk — the inverse of a self-funded MS.</p>
+        </div>
+        <div class="card">
+          <div class="card-label">Advisor role</div>
+          <h4>How central the relationship is</h4>
+          <p>"None" means you choose courses from a catalogue with minimal faculty involvement. "Central" means your advisor controls your research direction, funding, publication record, and in many cases your job prospects after graduation.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Deep dives</h2>
+      <div class="toc">
+        <div class="toc-item" onclick="goTo(1)">
+          <span class="toc-num">01</span>
+          <span class="toc-title">MS — Coursework</span>
+          <span class="toc-meta">1.5–2 yr · Self-funded · No thesis</span>
+          <span class="toc-arrow">→</span>
+        </div>
+        <div class="toc-item" onclick="goTo(2)">
+          <span class="toc-num">02</span>
+          <span class="toc-title">MS — Research</span>
+          <span class="toc-meta">1.5–2.5 yr · Partial funding · Thesis</span>
+          <span class="toc-arrow">→</span>
+        </div>
+        <div class="toc-item" onclick="goTo(3)">
+          <span class="toc-num">03</span>
+          <span class="toc-title">MEng — Master of Engineering</span>
+          <span class="toc-meta">1–2 yr · Self-funded · No thesis</span>
+          <span class="toc-arrow">→</span>
+        </div>
+        <div class="toc-item" onclick="goTo(4)">
+          <span class="toc-num">04</span>
+          <span class="toc-title">MSE — Master of Science in Engineering</span>
+          <span class="toc-meta">1.5–2 yr · Self-funded · Optional thesis</span>
+          <span class="toc-arrow">→</span>
+        </div>
+        <div class="toc-item" onclick="goTo(5)">
+          <span class="toc-num">05</span>
+          <span class="toc-title">MTech — Master of Technology</span>
+          <span class="toc-meta">2 yr · Stipend · Thesis · India</span>
+          <span class="toc-arrow">→</span>
+        </div>
+        <div class="toc-item" onclick="goTo(6)">
+          <span class="toc-num">06</span>
+          <span class="toc-title">MPhil — Master of Philosophy</span>
+          <span class="toc-meta">1–2 yr · Partial funding · Short thesis · UK</span>
+          <span class="toc-arrow">→</span>
+        </div>
+        <div class="toc-item" onclick="goTo(7)">
+          <span class="toc-num">07</span>
+          <span class="toc-title">MRes — Master of Research</span>
+          <span class="toc-meta">1 yr · Partial funding · Research report · UK</span>
+          <span class="toc-arrow">→</span>
+        </div>
+        <div class="toc-item" onclick="goTo(8)">
+          <span class="toc-num">08</span>
+          <span class="toc-title">PhD — Doctor of Philosophy</span>
+          <span class="toc-meta">4–6 yr · Fully funded · Dissertation</span>
+          <span class="toc-arrow">→</span>
+        </div>
+        <div class="toc-item" onclick="goTo(9)">
+          <span class="toc-num">09</span>
+          <span class="toc-title">Integrated MS-PhD</span>
+          <span class="toc-meta">5–6 yr · Fully funded · MS + Dissertation</span>
+          <span class="toc-arrow">→</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="disclaimer">This resource is maintained by the Ashoka University Post Graduate Office. Information reflects general patterns across institutions and may not apply to every programme.</div>
+</div>
+
+<!-- ===================== PAGE 1: MS COURSEWORK ===================== -->
+<div class="page" id="page-1">
+  <div class="hero">
+    <div class="hero-kicker">Deep Dive 01</div>
+    <h1>MS — <em>Coursework</em></h1>
+    <p class="hero-lead">A taught master's programme built around structured courses, with no thesis requirement. The most common postgraduate degree in CS internationally.</p>
+  </div>
+  <div class="content">
+    <div class="section-block">
+      <div class="data-rows">
+        <div class="data-row"><div class="data-key">Duration</div><div class="data-val">1.5–2 years (typically 3–4 semesters)</div></div>
+        <div class="data-row"><div class="data-key">Funding</div><div class="data-val">Self-funded. Tuition for top US programmes ranges from $50,000–$90,000 total. Teaching or research assistantships are rare and competitive. Some programmes offer partial merit scholarships.</div></div>
+        <div class="data-row"><div class="data-key">Thesis</div><div class="data-val">Not required. Most programmes end with a capstone project or design project completed in the final semester, often in a team.</div></div>
+        <div class="data-row"><div class="data-key">Advisor role</div><div class="data-val">Minimal to none. You interact with faculty primarily as instructors in your courses. There is no research supervisor. Some programmes have a faculty advisor for course selection, but this is administrative.</div></div>
+        <div class="data-row"><div class="data-key">Location</div><div class="data-val">Common in the US and Canada. Less common in Europe, where taught master's are shorter (1 year) and structured differently. Examples: CMU MSCS, Stanford MSCS, Columbia MSCS, Cornell Tech MEng (similar structure), UCSD MS.</div></div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Programme structure</h2>
+      <p>A coursework MS is organised around a fixed credit requirement — typically 10–12 graduate courses. Most programmes allow you to choose a specialisation track (machine learning, systems, HCI, security, etc.) that determines which courses you take.</p>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-year">Semester 1–2</div>
+          <h4>Core coursework</h4>
+          <p>Foundation courses in your chosen specialisation, often including required courses set by the department. 3–4 courses per semester. Pace is significantly faster than undergraduate — a week's material often covers what took a month in undergrad.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">Semester 3</div>
+          <h4>Electives and depth</h4>
+          <p>Elective courses in your specialisation area. Some students begin looking for part-time research positions or industry internships during this semester, particularly in programmes that allow it.</p>
+        </div>
+        <div class="timeline-item highlight">
+          <div class="timeline-year">Semester 3–4</div>
+          <h4>Capstone or final project</h4>
+          <p>A substantial team or individual project, often with an industry partner or a faculty-supervised problem. Not a research thesis — the output is a working system, design, or technical report. Graded by a faculty panel.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>What you produce</h2>
+      <p>By the end of a coursework MS, you will have completed 10–12 graduate-level courses and a capstone project. You will not have produced publishable research. The credential itself — the degree — is the primary output, along with the depth of knowledge in your specialisation and the network of peers and instructors from the programme.</p>
+    </div>
+
+    <div class="section-block">
+      <h2>Typical career destinations</h2>
+      <div class="card-grid">
+        <div class="card teal-card">
+          <div class="card-label">Most common</div>
+          <h4>Industry roles</h4>
+          <p>Software engineering, ML engineering, data science, and applied research roles at technology companies. The degree typically allows entry at a slightly more senior level than a bachelor's hire.</p>
+        </div>
+        <div class="card">
+          <div class="card-label">Less common</div>
+          <h4>Research or PhD</h4>
+          <p>Some students use a coursework MS to strengthen a PhD application, particularly if their undergraduate record was thin on research. Most programmes are not designed for this path.</p>
+        </div>
+        <div class="card">
+          <div class="card-label">US-specific</div>
+          <h4>OPT and work authorisation</h4>
+          <p>International students on F-1 visas receive 12 months of OPT (Optional Practical Training) after graduation, extendable to 3 years for STEM degrees. This is a significant practical reason many Indian students pursue a US MS.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="exit-block">
+      <div class="exit-label">Exit options</div>
+      <p>There are no formal mid-programme exit credentials. You either complete the full credit requirement and graduate, or you withdraw without a degree. Some programmes allow students to take a leave of absence for a semester, but this is institution-specific. Unlike a PhD, there is no "master out" option — the degree itself is the terminal credential.</p>
+    </div>
+
+    <div class="india-note">
+      <div class="india-note-label">India context</div>
+      <p>Pure coursework MS programmes are uncommon in India. IIT and IISc master's programmes are predominantly research-based (MTech or MS by Research). If you are looking for a coursework-style master's within India, options are limited — most students who want this structure look to US, Canadian, or European programmes.</p>
+    </div>
+  </div>
+  <div class="page-nav">
+    <button class="btn" onclick="goTo(0)">← Back</button>
+    <span class="page-label">01 / 09</span>
+    <button class="btn primary" onclick="goTo(2)">Next: MS Research →</button>
+  </div>
+</div>
+
+<!-- ===================== PAGE 2: MS RESEARCH ===================== -->
+<div class="page" id="page-2">
+  <div class="hero">
+    <div class="hero-kicker">Deep Dive 02</div>
+    <h1>MS — <em>Research</em></h1>
+    <p class="hero-lead">A thesis-based master's programme where the primary work is independent research conducted under a faculty advisor. Structurally distinct from a coursework MS in almost every way.</p>
+  </div>
+  <div class="content">
+    <div class="section-block">
+      <div class="data-rows">
+        <div class="data-row"><div class="data-key">Duration</div><div class="data-val">1.5–2.5 years. The timeline is less predictable than a coursework MS because it depends on research progress.</div></div>
+        <div class="data-row"><div class="data-key">Funding</div><div class="data-val">Varies significantly by institution and country. In the US, research MS students are sometimes funded through RA positions ($18,000–$28,000/year stipend + tuition waiver), but this is not guaranteed and depends on your advisor having grant funding. In the UK and Europe, partial bursaries and research council funding are available but competitive. Self-funded research MS programmes also exist.</div></div>
+        <div class="data-row"><div class="data-key">Thesis</div><div class="data-val">Required. The thesis is a document presenting original research — a problem statement, related work, methodology, results, and conclusions. It must be defended before a faculty committee.</div></div>
+        <div class="data-row"><div class="data-key">Advisor role</div><div class="data-val">High. Your advisor sets your research direction (or co-develops it with you), supervises your work, provides funding in some cases, and writes your strongest recommendation letter. The relationship is central to the programme experience.</div></div>
+        <div class="data-row"><div class="data-key">Location</div><div class="data-val">Available across US, Canada, UK, Europe, and Asia. In the US, many PhD programmes admit students into a research MS track before PhD candidacy. Standalone research MS programmes exist at institutions like UMass, UWaterloo, UofT, Edinburgh.</div></div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Programme structure</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-year">Months 1–6</div>
+          <h4>Coursework and research area selection</h4>
+          <p>Most research MS programmes require 4–6 graduate courses. Simultaneously, you are expected to identify an advisor and narrow down a research area. Some programmes have a formal rotation system; others expect you to arrive with an advisor already identified.</p>
+        </div>
+        <div class="timeline-item highlight">
+          <div class="timeline-year">Months 6–18</div>
+          <h4>Research</h4>
+          <p>The core of the programme. Reading papers, designing experiments, running them, interpreting results, iterating. Weekly advisor meetings. This phase is open-ended — progress depends on the problem, the approach, and factors outside your control.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">Months 18–30</div>
+          <h4>Thesis writing and defence</h4>
+          <p>Drafting the thesis, incorporating advisor feedback across multiple rounds, submitting to a committee, and defending orally. The defence is typically a 45–60 minute presentation followed by questions from the committee.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Advisor role</h2>
+      <p>The advisor relationship in a research MS is qualitatively different from anything in a coursework programme. Your advisor is not an instructor — they are a collaborator and supervisor. They set the research context, review your work regularly, and have significant influence over your timeline and output quality.</p>
+      <p>Before committing to a research MS programme, it is worth identifying which faculty member you would want to work with and verifying that they are actively accepting students, have funding, and have graduated students recently.</p>
+    </div>
+
+    <div class="section-block">
+      <h2>What you produce</h2>
+      <p>A written thesis presenting an original contribution to a specific research area. Depending on the programme and advisor, this thesis work may also result in a conference or workshop paper submission. The thesis is the primary output — it is examined by a faculty committee and becomes part of the institutional record.</p>
+    </div>
+
+    <div class="section-block">
+      <h2>Typical career destinations</h2>
+      <div class="card-grid">
+        <div class="card teal-card">
+          <div class="card-label">Common path A</div>
+          <h4>PhD programme</h4>
+          <p>A research MS is often used as preparation for a PhD. Completing a thesis demonstrates research ability and provides a strong writing sample and advisor recommendation for PhD applications.</p>
+        </div>
+        <div class="card teal-card">
+          <div class="card-label">Common path B</div>
+          <h4>Research-adjacent industry</h4>
+          <p>Research engineering, applied science, and ML research roles at companies that value research training. The thesis and any publications strengthen this application significantly versus a coursework MS.</p>
+        </div>
+        <div class="card">
+          <div class="card-label">Also possible</div>
+          <h4>Standard industry roles</h4>
+          <p>Software engineering and data science roles. The research MS is not a disadvantage here, but the coursework MS from a stronger branded programme may be equally or more competitive for pure engineering positions.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="exit-block">
+      <div class="exit-label">Exit options</div>
+      <p>Some institutions allow a research MS student to convert to a coursework MS if research is not working out — this typically means completing additional coursework in place of the thesis. This option varies by institution and must be confirmed before enrolment. There is no credential awarded for partially completed thesis work.</p>
+    </div>
+
+    <div class="india-note">
+      <div class="india-note-label">India context</div>
+      <p>IISc offers an MS (Research) programme that is structurally similar — coursework in the first year, thesis in the second. IITs offer a similar degree under the MTech or MS Research label depending on the department. These are stipend-funded and GATE-gated for most candidates. See the MTech deep dive for more detail on the Indian equivalent.</p>
+    </div>
+  </div>
+  <div class="page-nav">
+    <button class="btn" onclick="goTo(1)">← Back</button>
+    <span class="page-label">02 / 09</span>
+    <button class="btn primary" onclick="goTo(3)">Next: MEng →</button>
+  </div>
+</div>
+
+<!-- ===================== PAGE 3: MENG ===================== -->
+<div class="page" id="page-3">
+  <div class="hero">
+    <div class="hero-kicker">Deep Dive 03</div>
+    <h1>MEng —<br><em>Master of Engineering</em></h1>
+    <p class="hero-lead">A professional, practice-oriented master's degree designed for engineers who intend to work in industry. No thesis, no research requirement, shorter duration than most MS programmes.</p>
+  </div>
+  <div class="content">
+    <div class="section-block">
+      <div class="data-rows">
+        <div class="data-row"><div class="data-key">Duration</div><div class="data-val">1–2 years. Many MEng programmes, particularly at US institutions, are designed to be completed in one year (2–3 semesters).</div></div>
+        <div class="data-row"><div class="data-key">Funding</div><div class="data-val">Self-funded. Tuition is comparable to a coursework MS. Assistantships and scholarships are rare. At institutions like MIT, the MEng is offered as a continuation of the undergraduate degree and may have different cost structures for internal students.</div></div>
+        <div class="data-row"><div class="data-key">Thesis</div><div class="data-val">Not required. The degree ends in a substantial capstone project or design project — this is a practical engineering deliverable, not a research contribution.</div></div>
+        <div class="data-row"><div class="data-key">Advisor role</div><div class="data-val">Low. There is typically a project supervisor rather than a research advisor. The relationship is closer to a manager reviewing a deliverable than an academic mentor guiding independent inquiry.</div></div>
+        <div class="data-row"><div class="data-key">Where offered</div><div class="data-val">MIT, Cornell, Johns Hopkins, Columbia, Penn, Duke, and several other US institutions. The MEng is less common internationally — European universities use different naming conventions for similar professional master's programmes.</div></div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Programme structure</h2>
+      <p>The MEng is designed for professional development rather than research training. The curriculum is typically more applied than a traditional MS — courses focus on engineering practice, system design, and domain-specific technical depth.</p>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-year">Semester 1</div>
+          <h4>Advanced coursework</h4>
+          <p>Graduate-level courses in engineering specialisations. Some MEng programmes share courses with their MS counterparts; others have MEng-specific tracks designed for engineers entering industry.</p>
+        </div>
+        <div class="timeline-item highlight">
+          <div class="timeline-year">Semester 2–3</div>
+          <h4>Capstone project</h4>
+          <p>A substantial design or engineering project. Often completed in teams. At some institutions, this is done in collaboration with industry partners. The output is a working system, prototype, or detailed design specification — not a research paper.</p>
+        </div>
+      </div>
+      <p>At MIT, the MEng is structured as a fifth year of study for undergraduates already enrolled there. It combines a thesis component with coursework and is somewhat more research-oriented than MEng programmes elsewhere — worth checking the specific institution's structure.</p>
+    </div>
+
+    <div class="section-block">
+      <h2>What you produce</h2>
+      <p>A capstone project report and, depending on the programme, a working technical system or prototype. No publications, no original research contribution. The degree signals engineering competence and depth in a specialisation — it is designed to be immediately applicable in an industry role.</p>
+    </div>
+
+    <div class="section-block">
+      <h2>Typical career destinations</h2>
+      <div class="card-grid">
+        <div class="card teal-card">
+          <div class="card-label">Primary destination</div>
+          <h4>Industry engineering roles</h4>
+          <p>Senior software engineering, systems engineering, and technical product roles at technology companies. The MEng is well recognised at companies that recruit heavily from the institutions that offer it — particularly MIT and Cornell.</p>
+        </div>
+        <div class="card">
+          <div class="card-label">Less common</div>
+          <h4>Research or PhD</h4>
+          <p>The MEng is not designed as a pathway to research careers or PhD programmes. Students who want to pursue a PhD after an MEng would typically need additional research experience beyond the degree itself.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="exit-block">
+      <div class="exit-label">Exit options</div>
+      <p>No intermediate credential. The MEng is a terminal professional degree — you complete it or you don't. Given the short duration (often 1 year), early exits are uncommon.</p>
+    </div>
+
+    <div class="india-note">
+      <div class="india-note-label">India context</div>
+      <p>The MEng title is not commonly used in Indian institutions. The closest equivalents are the MTech (research-based, at IITs) or the ME (Master of Engineering) at some private universities, which is closer in structure to a coursework MS. These are distinct from the US MEng and should be evaluated on their own terms.</p>
+    </div>
+  </div>
+  <div class="page-nav">
+    <button class="btn" onclick="goTo(2)">← Back</button>
+    <span class="page-label">03 / 09</span>
+    <button class="btn primary" onclick="goTo(4)">Next: MSE →</button>
+  </div>
+</div>
+
+<!-- ===================== PAGE 4: MSE ===================== -->
+<div class="page" id="page-4">
+  <div class="hero">
+    <div class="hero-kicker">Deep Dive 04</div>
+    <h1>MSE —<br><em>Master of Science in Engineering</em></h1>
+    <p class="hero-lead">A degree title used by multiple institutions to mean different things. Understanding what a specific MSE programme involves requires reading the programme description carefully — the name alone tells you less than it does for other degree types.</p>
+  </div>
+  <div class="content">
+    <div class="section-block">
+      <div class="data-rows">
+        <div class="data-row"><div class="data-key">Duration</div><div class="data-val">1.5–2 years, typically 3 semesters.</div></div>
+        <div class="data-row"><div class="data-key">Funding</div><div class="data-val">Self-funded in most cases. Some MSE programmes at research-oriented institutions offer partial RA funding, but this is the exception rather than the rule.</div></div>
+        <div class="data-row"><div class="data-key">Thesis</div><div class="data-val">Optional at most institutions — students can choose a thesis track or a coursework-only track. This is the key structural distinction of the MSE: it sits between a pure coursework MS and a research MS.</div></div>
+        <div class="data-row"><div class="data-key">Advisor role</div><div class="data-val">Low to moderate, depending on whether you take the thesis track. In the coursework track, faculty involvement is similar to a coursework MS. In the thesis track, an advisor supervises the thesis work.</div></div>
+        <div class="data-row"><div class="data-key">Where offered</div><div class="data-val">University of Pennsylvania (CIS), Johns Hopkins (CS), University of Michigan (CSE), Arizona State, and others. The degree exists predominantly at US institutions.</div></div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Programme structure</h2>
+      <p>The MSE is best understood as a flexible degree that can lean either toward professional coursework or toward research, depending on the institution and the track you choose. Many MSE programmes allow this choice at enrolment or at the end of the first year.</p>
+
+      <h3>Coursework track</h3>
+      <p>Structurally similar to a coursework MS. 8–10 graduate courses, a capstone or final project, no thesis requirement. Outcome and career destinations are similar to a coursework MS.</p>
+
+      <h3>Thesis track</h3>
+      <p>Structurally similar to a research MS. 6–8 graduate courses plus independent research under an advisor, ending in a thesis and oral defence. Outcome and career destinations are similar to a research MS.</p>
+    </div>
+
+    <div class="section-block">
+      <h2>What you produce</h2>
+      <p>Either a capstone project (coursework track) or a research thesis (thesis track). The degree credential itself is the same regardless of track at most institutions — both say MSE on the diploma, though your transcript will indicate which you completed.</p>
+    </div>
+
+    <div class="section-block">
+      <h2>Typical career destinations</h2>
+      <div class="card-grid">
+        <div class="card teal-card">
+          <div class="card-label">Coursework track</div>
+          <h4>Industry roles</h4>
+          <p>Software engineering, systems engineering, ML engineering. Comparable to a coursework MS for most industry hiring purposes.</p>
+        </div>
+        <div class="card teal-card">
+          <div class="card-label">Thesis track</div>
+          <h4>Research or PhD</h4>
+          <p>Research-adjacent industry roles or PhD programme applications. The thesis provides a research writing sample and the advisor provides a strong LoR, both of which strengthen a PhD application.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="exit-block">
+      <div class="exit-label">Exit options</div>
+      <p>If you enrol in the thesis track and find that research is not working out, most MSE programmes allow you to switch to the coursework track and complete the degree without a thesis. This is one of the practical advantages of the MSE structure over a standalone research MS. Confirm this option with the specific programme before applying.</p>
+    </div>
+
+    <div class="india-note">
+      <div class="india-note-label">India context</div>
+      <p>The MSE title is not used in Indian institutions. The ME (Master of Engineering) degree at some universities covers similar ground but is structured differently. The flexibility of the US MSE — choosing between thesis and non-thesis tracks — is not a feature of most Indian postgraduate programmes.</p>
+    </div>
+  </div>
+  <div class="page-nav">
+    <button class="btn" onclick="goTo(3)">← Back</button>
+    <span class="page-label">04 / 09</span>
+    <button class="btn primary" onclick="goTo(5)">Next: MTech →</button>
+  </div>
+</div>
+
+<!-- ===================== PAGE 5: MTECH ===================== -->
+<div class="page" id="page-5">
+  <div class="hero">
+    <div class="hero-kicker">Deep Dive 05</div>
+    <h1>MTech —<br><em>Master of Technology</em></h1>
+    <p class="hero-lead">The primary postgraduate engineering degree in India. Research-oriented, thesis-based, and offered at IITs and IISc with stipend funding for most students.</p>
+  </div>
+  <div class="content">
+    <div class="section-block">
+      <div class="data-rows">
+        <div class="data-row"><div class="data-key">Duration</div><div class="data-val">2 years (4 semesters).</div></div>
+        <div class="data-row"><div class="data-key">Funding</div><div class="data-val">Most MTech students at IITs and IISc receive a monthly stipend of ₹12,400–₹16,000 (MHRD/GATE scholarship) plus a tuition fee waiver. Students not holding a GATE score may not qualify for the stipend. Private university MTech programmes are typically self-funded.</div></div>
+        <div class="data-row"><div class="data-key">Thesis</div><div class="data-val">Required. The thesis typically spans the second year and is a substantial research contribution. It must be submitted to and examined by a departmental committee.</div></div>
+        <div class="data-row"><div class="data-key">Advisor role</div><div class="data-val">High. An advisor (called a thesis supervisor or guide) is assigned or chosen at the end of the first year. They direct the research, supervise experiments, and sign off on the thesis. The relationship is similar to a research MS advisor internationally.</div></div>
+        <div class="data-row"><div class="data-key">Admission</div><div class="data-val">GATE score is the standard entry requirement at IITs and IISc. Some departments also admit candidates through direct interview processes for students with exceptional undergraduate records. Admissions are competitive — top departments at IIT Bombay, Delhi, Madras, and IISc are selective.</div></div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Programme structure</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-year">Year 1 (Semesters 1–2)</div>
+          <h4>Coursework</h4>
+          <p>Graduate-level courses in the department. 6–8 courses spread across two semesters. Students begin identifying a thesis supervisor and research area toward the end of Year 1.</p>
+        </div>
+        <div class="timeline-item highlight">
+          <div class="timeline-year">Year 2 (Semesters 3–4)</div>
+          <h4>Thesis research</h4>
+          <p>Full-time research under the supervisor. Literature review, problem formulation, experimentation, results analysis, and thesis writing. The thesis is submitted at the end of Semester 4 and defended before a departmental committee.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>What you produce</h2>
+      <p>A research thesis presenting an original contribution in your area. Depending on the supervisor and department, this work may also result in a conference or journal paper. The thesis quality and the supervisor's reputation are both important for subsequent opportunities — whether in industry or a PhD programme.</p>
+    </div>
+
+    <div class="section-block">
+      <h2>Typical career destinations</h2>
+      <div class="card-grid">
+        <div class="card teal-card">
+          <div class="card-label">Common path A</div>
+          <h4>Industry in India</h4>
+          <p>Product companies, research labs, and applied ML roles. The IIT/IISc brand carries significant weight in the Indian job market, particularly for technical roles at larger companies.</p>
+        </div>
+        <div class="card teal-card">
+          <div class="card-label">Common path B</div>
+          <h4>PhD (India or abroad)</h4>
+          <p>An MTech from IISc or a top IIT is a strong credential for PhD applications at international programmes. The thesis and supervisor recommendation letter are taken seriously by admissions committees abroad.</p>
+        </div>
+        <div class="card">
+          <div class="card-label">Also common</div>
+          <h4>Research positions</h4>
+          <p>Research associate and scientist roles at DRDO, ISRO, and national labs. Some government research positions explicitly require or prefer an MTech.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="exit-block">
+      <div class="exit-label">Exit options</div>
+      <p>At IISc, exceptional MTech students can apply to convert their enrolment to a PhD programme, typically after completing their thesis and with strong supervisor support. This is not automatic and requires departmental approval. At IITs, the conversion process varies by department. Students who do not complete the thesis do not receive the MTech degree — there is no intermediate credential.</p>
+    </div>
+
+    <div class="india-note">
+      <div class="india-note-label">India context</div>
+      <p>The MTech is the dominant postgraduate engineering degree in India and is what most Indian students mean when they say "master's in India." The quality varies enormously between institutions — an MTech from IISc or IIT Bombay is internationally recognised, while an MTech from a private university may carry little weight for research applications. GATE preparation is typically a 6–12 month commitment and should be factored into the planning timeline.</p>
+    </div>
+  </div>
+  <div class="page-nav">
+    <button class="btn" onclick="goTo(4)">← Back</button>
+    <span class="page-label">05 / 09</span>
+    <button class="btn primary" onclick="goTo(6)">Next: MPhil →</button>
+  </div>
+</div>
+
+<!-- ===================== PAGE 6: MPHIL ===================== -->
+<div class="page" id="page-6">
+  <div class="hero">
+    <div class="hero-kicker">Deep Dive 06</div>
+    <h1>MPhil —<br><em>Master of Philosophy</em></h1>
+    <p class="hero-lead">A research degree most commonly offered in the UK, sitting between a taught master's and a PhD. In CS specifically, it is relatively uncommon — most UK CS students move directly from a taught master's to a PhD.</p>
+  </div>
+  <div class="content">
+    <div class="section-block">
+      <div class="data-rows">
+        <div class="data-row"><div class="data-key">Duration</div><div class="data-val">1–2 years, depending on the institution and whether studied full-time or part-time.</div></div>
+        <div class="data-row"><div class="data-key">Funding</div><div class="data-val">Partial funding is available through UK Research Councils (EPSRC, AHRC) and institutional bursaries, but MPhil-specific funding is less available than PhD funding. Many MPhil students are self-funded or supported by employer sponsorship.</div></div>
+        <div class="data-row"><div class="data-key">Thesis</div><div class="data-val">Yes, but shorter than a PhD dissertation. Typically 40,000–60,000 words (compared to 80,000–100,000 for a PhD). Must make an original scholarly contribution and is examined by an internal and external examiner via viva voce (oral examination).</div></div>
+        <div class="data-row"><div class="data-key">Advisor role</div><div class="data-val">High. An MPhil supervisor directs the research, provides feedback on drafts, and serves a role similar to a PhD supervisor, though the shorter timeline means the relationship is more compressed.</div></div>
+        <div class="data-row"><div class="data-key">Where offered</div><div class="data-val">Primarily UK institutions: Oxford, Cambridge, Edinburgh, UCL, Imperial, Manchester. Some Australian universities offer the MPhil as well. Rare in the US and continental Europe.</div></div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Programme structure</h2>
+      <p>The MPhil is an almost entirely research-based degree. There are typically no formal taught courses — you begin research from day one under supervisor guidance. This distinguishes it from degrees that blend coursework with research in the first year.</p>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-year">Months 1–3</div>
+          <h4>Research plan and literature review</h4>
+          <p>Developing the research question with your supervisor, conducting an initial literature survey, and submitting a formal research plan that the department approves.</p>
+        </div>
+        <div class="timeline-item highlight">
+          <div class="timeline-year">Months 3–18</div>
+          <h4>Research and writing</h4>
+          <p>The main research period. Regular supervisor meetings, iterative feedback on written work, and production of the thesis chapters. The pace is self-directed with supervisor oversight.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">Month 18–24</div>
+          <h4>Submission and viva</h4>
+          <p>Thesis submission followed by an oral examination (viva voce) with two examiners — typically one internal and one external to the institution. Outcome may be pass, minor corrections, major corrections, or referral to PhD.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>MPhil as PhD probation</h2>
+      <p>At some UK institutions, students are initially registered as MPhil students and upgrade to PhD candidacy after a formal review at 9–12 months. This is a quality control mechanism — not all students who intend to do a PhD complete the upgrade successfully. If you are admitted to a UK PhD programme with MPhil registration, clarify whether this is the case and what the upgrade process involves.</p>
+    </div>
+
+    <div class="section-block">
+      <h2>What you produce</h2>
+      <p>A written thesis of 40,000–60,000 words presenting an original research contribution. In CS, this is typically accompanied by software, datasets, or experimental results. The thesis must pass an oral examination to be awarded.</p>
+    </div>
+
+    <div class="section-block">
+      <h2>Typical career destinations</h2>
+      <div class="card-grid">
+        <div class="card teal-card">
+          <div class="card-label">Most common</div>
+          <h4>PhD programme</h4>
+          <p>Many MPhil students continue to a PhD, either at the same institution or elsewhere. The MPhil provides a strong foundation and demonstrates research ability.</p>
+        </div>
+        <div class="card">
+          <div class="card-label">Also possible</div>
+          <h4>Industry research roles</h4>
+          <p>Research scientist or research engineer roles at companies with UK or European operations. The MPhil is better recognised in the UK market than internationally.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="exit-block">
+      <div class="exit-label">Exit options</div>
+      <p>In the UK system, if a student registered for a PhD does not complete or does not pass the upgrade review, they may be awarded an MPhil based on work completed to that point. This is a formal exit route and is reasonably common. Students who begin as standalone MPhil registrants and choose not to continue have no intermediate credential — the degree is awarded only upon successful completion.</p>
+    </div>
+
+    <div class="india-note">
+      <div class="india-note-label">India context</div>
+      <p>The MPhil exists formally in India — some universities offer it — but it is being phased out following UGC regulatory changes. It was more common in humanities than in CS. For CS students from Ashoka considering research degrees, the MPhil is a UK/international consideration, not an Indian one.</p>
+    </div>
+  </div>
+  <div class="page-nav">
+    <button class="btn" onclick="goTo(5)">← Back</button>
+    <span class="page-label">06 / 09</span>
+    <button class="btn primary" onclick="goTo(7)">Next: MRes →</button>
+  </div>
+</div>
+
+<!-- ===================== PAGE 7: MRES ===================== -->
+<div class="page" id="page-7">
+  <div class="hero">
+    <div class="hero-kicker">Deep Dive 07</div>
+    <h1>MRes —<br><em>Master of Research</em></h1>
+    <p class="hero-lead">A one-year research-focused degree offered primarily in the UK. Designed explicitly as preparation for doctoral study — minimal taught content, maximum research exposure.</p>
+  </div>
+  <div class="content">
+    <div class="section-block">
+      <div class="data-rows">
+        <div class="data-row"><div class="data-key">Duration</div><div class="data-val">1 year full-time (some part-time options over 2 years).</div></div>
+        <div class="data-row"><div class="data-key">Funding</div><div class="data-val">EPSRC and other UK research council funding is sometimes available, particularly for MRes programmes that feed directly into funded PhD tracks. Institutional bursaries exist. Many students are self-funded. Total cost at UK universities for international students: £20,000–£35,000 including living expenses.</div></div>
+        <div class="data-row"><div class="data-key">Thesis</div><div class="data-val">Yes — a substantial research report or short thesis, typically 20,000–40,000 words. Some MRes programmes have a viva voce; others are assessed by submission and examiner review only.</div></div>
+        <div class="data-row"><div class="data-key">Advisor role</div><div class="data-val">High. Research supervision is the core of the programme. You work closely with one or two supervisors throughout the year. In some MRes programmes linked to doctoral training centres (CDTs), you rotate through multiple research groups before committing to a thesis project.</div></div>
+        <div class="data-row"><div class="data-key">Where offered</div><div class="data-val">Imperial College London, UCL, Edinburgh, Manchester, Bristol, and several others. Often offered through EPSRC Centres for Doctoral Training (CDTs), which combine an MRes year with subsequent PhD funding.</div></div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Programme structure</h2>
+      <p>The MRes is unusual in that it is explicitly designed to train you in research methods and practices, rather than to teach subject content. Taught components, where they exist, focus on research skills — academic writing, statistical methods, research ethics, presentation — rather than technical CS content.</p>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-year">Months 1–3</div>
+          <h4>Research training and project selection</h4>
+          <p>In CDT-linked programmes, this often involves lab rotations — spending 4–6 weeks in different research groups to identify a project. Standalone MRes programmes begin with an assigned or agreed project immediately.</p>
+        </div>
+        <div class="timeline-item highlight">
+          <div class="timeline-year">Months 3–10</div>
+          <h4>Research project</h4>
+          <p>The main research work. Reading, experimenting, building, writing. Weekly supervisor meetings. The pace is intensive given the short overall duration.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">Months 10–12</div>
+          <h4>Thesis submission</h4>
+          <p>Writing and submission of the research report or thesis. Some programmes require an oral presentation; others assess by written submission only.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>CDT-linked MRes programmes</h2>
+      <p>Several of the most competitive MRes opportunities in the UK are attached to EPSRC Centres for Doctoral Training. In these programmes, the MRes is year one of a 4+1 structure — you do the MRes year and, if successful, continue into a funded PhD for 3–4 more years. This is a significant consideration: the MRes application is effectively also a PhD application, and the funding flows through the full programme. Examples include the CDTs in Machine Learning (Edinburgh, Cambridge), Natural Language Processing (Sheffield), and Autonomous Intelligent Machines (Imperial).</p>
+    </div>
+
+    <div class="section-block">
+      <h2>What you produce</h2>
+      <p>A research report or short thesis presenting a completed research project. In CS MRes programmes, this often includes a software component alongside the written document. Given the one-year timeline, the scope is narrower than a full PhD or MPhil thesis.</p>
+    </div>
+
+    <div class="section-block">
+      <h2>Typical career destinations</h2>
+      <div class="card-grid">
+        <div class="card teal-card">
+          <div class="card-label">Primary path</div>
+          <h4>PhD programme</h4>
+          <p>Most MRes students continue to a PhD, either through the CDT structure (directly funded) or by applying separately to PhD programmes elsewhere. The MRes is primarily a research training and PhD preparation degree.</p>
+        </div>
+        <div class="card">
+          <div class="card-label">Secondary path</div>
+          <h4>Industry research roles</h4>
+          <p>Research engineer or research scientist roles, particularly at UK-based companies. The one-year duration and research-only structure make it more specialised than a taught master's for general industry applications.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="exit-block">
+      <div class="exit-label">Exit options</div>
+      <p>Given the one-year duration, there are no meaningful mid-programme exit options. If you are in a CDT-linked programme and choose not to continue to the PhD, you receive the MRes upon successful submission of the thesis. The MRes is a complete credential in itself — it does not require continuation to a PhD to be awarded.</p>
+    </div>
+
+    <div class="india-note">
+      <div class="india-note-label">India context</div>
+      <p>The MRes does not exist in Indian institutions. It is a UK-specific credential. For Ashoka students, it is most relevant if you are specifically interested in UK PhD programmes that use the CDT structure, or if you want a one-year research experience before deciding whether to commit to a full PhD.</p>
+    </div>
+  </div>
+  <div class="page-nav">
+    <button class="btn" onclick="goTo(6)">← Back</button>
+    <span class="page-label">07 / 09</span>
+    <button class="btn primary" onclick="goTo(8)">Next: PhD →</button>
+  </div>
+</div>
+
+<!-- ===================== PAGE 8: PHD ===================== -->
+<div class="page" id="page-8">
+  <div class="hero">
+    <div class="hero-kicker">Deep Dive 08</div>
+    <h1>PhD —<br><em>Doctor of Philosophy</em></h1>
+    <p class="hero-lead">A research doctorate. The terminal academic degree in CS. You are expected to produce original knowledge — work that advances the field in a demonstrable way — and defend that contribution publicly.</p>
+  </div>
+  <div class="content">
+    <div class="section-block">
+      <div class="data-rows">
+        <div class="data-row"><div class="data-key">Duration</div><div class="data-val">4–6 years in the US. 3–4 years in the UK and Europe (where students typically arrive with a master's already completed). The actual duration is difficult to predict at enrolment — it depends on the research problem, advisor, and individual progress.</div></div>
+        <div class="data-row"><div class="data-key">Funding</div><div class="data-val">Fully funded at accredited US programmes — stipend of $28,000–$45,000/year depending on institution and location, plus full tuition waiver. UK and European PhD studentships are also typically funded. A PhD should never require you to pay tuition. If a programme asks you to pay, it is not a standard research doctorate.</div></div>
+        <div class="data-row"><div class="data-key">Thesis</div><div class="data-val">Yes — a dissertation of 150–300 pages (in CS, often shorter than other fields) presenting several years of original research. Must make a novel and significant contribution to the field. Examined in an oral defence (US: dissertation defence; UK: viva voce).</div></div>
+        <div class="data-row"><div class="data-key">Advisor role</div><div class="data-val">Central. Your advisor (principal investigator, or PI) sets your research direction in collaboration with you, provides funding through grants, supervises your work, co-authors papers, writes your most important recommendation letters, and is often the primary factor in where you get your first job after graduating. The advisor relationship is the most important variable in a PhD.</div></div>
+        <div class="data-row"><div class="data-key">Publications</div><div class="data-val">In CS, papers published at top conferences (NeurIPS, ICML, ICLR for ML; SOSP, OSDI for systems; SIGGRAPH for graphics; CCS for security; etc.) are the primary currency of a PhD. The number and venue of publications significantly influence job prospects in both academia and industry research.</div></div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Programme structure</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-year">Year 1</div>
+          <h4>Coursework and lab rotations</h4>
+          <p>Most US PhD programmes require 4–8 graduate courses in the first year. Some programmes (CMU, Stanford, MIT) also have a rotation system — you spend 6–8 weeks in different research labs before committing to an advisor. Others expect you to have identified an advisor before arrival.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">Year 2</div>
+          <h4>Qualifying examination</h4>
+          <p>Most US PhD programmes require a qualifying exam at the end of year 1 or during year 2. The format varies — written exam, oral exam, or research proposal presentation. Passing the qual is required to continue in the programme. Students who fail may receive a terminal master's degree.</p>
+        </div>
+        <div class="timeline-item highlight">
+          <div class="timeline-year">Years 2–4</div>
+          <h4>Research and publication</h4>
+          <p>The core of the PhD. Identifying research problems, running experiments, writing papers, submitting to conferences, revising and resubmitting. This period is open-ended and self-directed, with weekly advisor meetings providing structure. Most publications happen in this phase.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">Year 3–5</div>
+          <h4>Dissertation proposal</h4>
+          <p>A formal document and presentation outlining your planned dissertation — what you have done so far and what you will complete. Once approved by your committee, you are officially a PhD candidate. This process is sometimes called "advancing to candidacy."</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">Year 4–6</div>
+          <h4>Dissertation and defence</h4>
+          <p>Writing the dissertation, incorporating advisor and committee feedback, and conducting the final oral defence. In CS, the dissertation typically consolidates 3–5 published or submitted papers into a coherent document with a connecting narrative.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>The advisor relationship</h2>
+      <p>The advisor is the most consequential factor in a PhD experience. Your advisor controls your funding (through grants), sets research direction, reviews your papers, writes the recommendation letters that open doors to post-PhD positions, and in many cases is directly responsible for connecting you to your first job through their network.</p>
+      <p>Before committing to a PhD programme, most applicants reach out to potential advisors directly — emailing to discuss research interests, attending their talks, and requesting informal conversations with their current students. Advisor selection is something to do before accepting an offer, not after arriving.</p>
+
+      <div class="card-grid">
+        <div class="card">
+          <div class="card-label">Ask the advisor</div>
+          <h4>Funding horizon</h4>
+          <p>How long does their current grant funding last? Are they writing new grants? A funding gap in year 3 of a PhD is a serious problem.</p>
+        </div>
+        <div class="card">
+          <div class="card-label">Ask their students</div>
+          <h4>Graduation timelines</h4>
+          <p>How long did recent students take to finish? Are there students who left the programme or changed advisors? What do students do after graduating — and did the advisor help place them?</p>
+        </div>
+        <div class="card accent-card">
+          <div class="card-label">Check independently</div>
+          <h4>Publication record</h4>
+          <p>Look at the advisor's lab page. Are their students publishing at strong venues regularly? A strong advisor has a consistent output of student-led publications at relevant conferences.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>What you produce</h2>
+      <p>A dissertation — typically 3–5 papers worth of original research compiled into a coherent document. In CS, the papers themselves (published or accepted at top conferences) are the primary output during the PhD. The dissertation is a synthesis of this work. By the end, you are expected to be one of the world's experts on a specific, narrow problem.</p>
+    </div>
+
+    <div class="section-block">
+      <h2>Typical career destinations</h2>
+      <div class="card-grid">
+        <div class="card teal-card">
+          <div class="card-label">Research careers</div>
+          <h4>Academic faculty</h4>
+          <p>Assistant professor positions at universities. The academic job market in CS is competitive — tenure-track positions at research universities require a strong publication record at top venues and strong faculty recommendation letters.</p>
+        </div>
+        <div class="card teal-card">
+          <div class="card-label">Research careers</div>
+          <h4>Industry research labs</h4>
+          <p>Research scientist roles at Google DeepMind, Meta AI, Microsoft Research, OpenAI, Anthropic, and similar organisations. These positions are highly competitive and typically require a strong PhD publication record.</p>
+        </div>
+        <div class="card">
+          <div class="card-label">Industry roles</div>
+          <h4>Senior engineering and applied ML</h4>
+          <p>Many PhD graduates enter industry in senior engineering, staff research engineering, or applied science roles. The PhD is not required for these positions, but the research training and seniority signal are valued at some companies.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="exit-block">
+      <div class="exit-label">Exit options</div>
+      <p>Most US PhD programmes have a formal "master's out" option. After completing coursework requirements and the qualifying examination (typically at the end of year 2), a student who leaves the programme can receive a master's degree. This is a legitimate and common exit — it is not treated as a failure by most employers. The MS awarded this way is equivalent to a standalone research MS for most purposes. UK and European programmes handle this differently — check the specific programme's policy. In India, IISc and some IIT programmes have similar provisions, but they vary by department.</p>
+    </div>
+
+    <div class="india-note">
+      <div class="india-note-label">India context</div>
+      <p>IISc and IITs offer PhD programmes that are stipend-funded (₹31,000–₹35,000/month at IISc for junior research fellows). Admission is through interviews and in some cases GATE scores or JEST/JGEEBILS. Indian PhD programmes are typically 4–6 years. The publication culture is improving but remains less competitive than top US programmes for placements at international research labs — though this is changing in ML and AI specifically.</p>
+    </div>
+  </div>
+  <div class="page-nav">
+    <button class="btn" onclick="goTo(7)">← Back</button>
+    <span class="page-label">08 / 09</span>
+    <button class="btn primary" onclick="goTo(9)">Next: Integrated MS-PhD →</button>
+  </div>
+</div>
+
+<!-- ===================== PAGE 9: INTEGRATED MS-PHD ===================== -->
+<div class="page" id="page-9">
+  <div class="hero">
+    <div class="hero-kicker">Deep Dive 09</div>
+    <h1>Integrated<br><em>MS-PhD</em></h1>
+    <p class="hero-lead">A single enrolment track that combines a master's degree and a PhD into one continuous programme. You apply to the PhD track, receive the MS along the way, and continue to the doctorate without a separate application.</p>
+  </div>
+  <div class="content">
+    <div class="section-block">
+      <div class="data-rows">
+        <div class="data-row"><div class="data-key">Duration</div><div class="data-val">5–6 years total. The MS is typically awarded at the end of year 2 or upon completion of coursework and qualifying requirements. The PhD follows for 3–4 more years.</div></div>
+        <div class="data-row"><div class="data-key">Funding</div><div class="data-val">Fully funded throughout — stipend plus tuition waiver for the entire duration, exactly as with a standalone PhD. The MS component does not require separate or additional funding.</div></div>
+        <div class="data-row"><div class="data-key">Thesis</div><div class="data-val">Yes — both an MS thesis (or equivalent milestone) and a PhD dissertation. Some programmes award the MS based on coursework and qualifying exam completion without a separate thesis; others require a thesis or research report at the MS stage.</div></div>
+        <div class="data-row"><div class="data-key">Advisor role</div><div class="data-val">Central, identical to a standalone PhD. The advisor relationship is the same in structure and importance.</div></div>
+        <div class="data-row"><div class="data-key">Where offered</div><div class="data-val">CMU (most departments), MIT (some programmes), Georgia Tech, UMass Amherst, and several others. In India: TIFR, IISc (some departments), IISER. Not all CS departments offer an integrated track — it is programme-specific.</div></div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>How it differs from a standalone PhD</h2>
+      <p>In a standalone PhD, you apply as a PhD student from day one. In an integrated MS-PhD, the structure is the same but the MS degree is a formal milestone along the way — you receive it automatically after completing the coursework and qualifying requirements, without needing to apply or pay separately for it.</p>
+      <p>The key practical difference is at the application stage: you are committing to the PhD track when you apply. There is no "try the MS first and see if I want to continue" step. Some students prefer this clarity; others prefer the optionality of a standalone research MS that can pivot to a PhD application later.</p>
+    </div>
+
+    <div class="section-block">
+      <h2>Programme structure</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-year">Years 1–2</div>
+          <h4>Coursework and qualifying requirements</h4>
+          <p>Graduate courses, lab rotations (in some programmes), and qualifying examinations. Upon completing these requirements, the MS degree is awarded. The programme continues without interruption.</p>
+        </div>
+        <div class="timeline-item highlight">
+          <div class="timeline-year">Years 2–5+</div>
+          <h4>PhD research</h4>
+          <p>Full-time research, publication, dissertation proposal, and dissertation. Identical in structure to the research phase of a standalone PhD.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year">Year 5–6</div>
+          <h4>Dissertation and defence</h4>
+          <p>Same as a standalone PhD — writing, submission, and oral defence before the dissertation committee.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>Why choose this over a standalone PhD</h2>
+      <div class="card-grid">
+        <div class="card teal-card">
+          <div class="card-label">Advantage</div>
+          <h4>MS credential at no extra cost</h4>
+          <p>You receive a fully funded MS degree as part of a funded PhD programme. If you master out, you leave with an MS at no tuition cost — the same exit option as a standalone PhD, but the MS was always built in.</p>
+        </div>
+        <div class="card teal-card">
+          <div class="card-label">Advantage</div>
+          <h4>No reapplication required</h4>
+          <p>You don't need to apply separately to a PhD after completing an MS. This removes a year of uncertainty and a second application cycle.</p>
+        </div>
+        <div class="card amber-card">
+          <div class="card-label">Consideration</div>
+          <h4>Early commitment</h4>
+          <p>You are committing to a PhD track at the point of application — without the trial run that a standalone research MS provides. Students who are uncertain about research should factor this in.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-block">
+      <h2>What you produce</h2>
+      <p>The same outputs as a standalone PhD — publications at research conferences, a dissertation, and a defence. The MS along the way is a formal credential but not an additional research output on its own. Some programmes require a research report at the MS milestone; others do not.</p>
+    </div>
+
+    <div class="section-block">
+      <h2>Typical career destinations</h2>
+      <p>Identical to a standalone PhD. Academic faculty positions, research scientist roles at labs, and senior engineering or applied science roles in industry. Employers treat an integrated MS-PhD the same as a standalone PhD for hiring purposes.</p>
+    </div>
+
+    <div class="exit-block">
+      <div class="exit-label">Exit options</div>
+      <p>The same master's out option exists as in a standalone PhD. After completing coursework and qualifying requirements, a student who chooses to leave the programme receives the MS degree. Because the integrated programme was designed with the MS as a milestone, this exit is structurally clean — there is no ambiguity about whether you qualify for the MS upon leaving. The MS awarded this way is equivalent to a standalone research MS or the master's awarded upon exit from a PhD programme.</p>
+    </div>
+
+    <div class="india-note">
+      <div class="india-note-label">India context</div>
+      <p>TIFR (Tata Institute of Fundamental Research) offers an integrated PhD programme in CS and related fields that follows a similar structure — coursework in the first year, research thereafter, with the MS awarded along the way. IISc offers integrated PhD programmes in some departments. Admission to these programmes is through national-level examinations (JEST, JGEEBILS) or direct interviews for top candidates.</p>
+    </div>
+  </div>
+  <div class="page-nav">
+    <button class="btn" onclick="goTo(8)">← Back</button>
+    <span class="page-label">09 / 09</span>
+    <button class="btn primary" onclick="goTo(0)">← Back to comparison</button>
+  </div>
+  <div class="disclaimer">This resource is maintained by the Ashoka University Post Graduate Office. Content does not constitute professional advice.</div>
+</div>
+
+<script>
+const TOTAL_PAGES = 10;
+let currentPage = 0;
+
+function buildNav() {
+  const container = document.getElementById('navDots');
+  container.innerHTML = '';
+  for (let i = 0; i < TOTAL_PAGES; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'nav-dot' + (i === currentPage ? ' active' : (i < currentPage ? ' visited' : ''));
+    dot.onclick = () => goTo(i);
+    const labels = ['Compare','MS Coursework','MS Research','MEng','MSE','MTech','MPhil','MRes','PhD','MS-PhD'];
+    dot.title = labels[i];
+    container.appendChild(dot);
+  }
+}
+
+function goTo(n) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + n).classList.add('active');
+  currentPage = n;
+  buildNav();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+buildNav();
+</script>
+</body>
+</html>
