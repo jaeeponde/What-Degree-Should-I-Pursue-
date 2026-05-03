@@ -1196,17 +1196,18 @@ const TOTAL_PAGES = 10;
 let currentPage = 0;
 
 function buildNav() {
-  const container = document.getElementById('navDots');
-  container.innerHTML = '';
-  for (let i = 0; i < TOTAL_PAGES; i++) {
-    const dot = document.createElement('div');
-    dot.className = 'nav-dot' + (i === currentPage ? ' active' : (i < currentPage ? ' visited' : ''));
-    dot.onclick = () => goTo(i);
-    const labels = ['Compare','MS Coursework','MS Research','MEng','MSE','MTech','MPhil','MRes','PhD','MS-PhD'];
-    dot.title = labels[i];
-    container.appendChild(dot);
-  }
+ const container = document.getElementById('navDots');
+ container.innerHTML = '<span onclick="goTo(Math.max(0, 0))" style="font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:0.06em;cursor:pointer;margin-right:10px;"> HOME </span>';
+ const labels = ['Map','AI/ML','Systems','Theory','Human-Centred','Interdisciplinary','Robotics','T1: AI vs Systems','T2: Theory vs ML','T3: Broad vs Niche','T4: Degree vs MSCS'];
+ for (let i = 0; i < TOTAL_PAGES; i++) {
+   const dot = document.createElement('div');
+   dot.className = 'nav-dot' + (i === currentPage ? ' active' : (i < currentPage ? ' visited' : ''));
+   dot.onclick = () => goTo(i);
+   dot.title = labels[i];
+   container.appendChild(dot);
+ }
 }
+
 
 function goTo(n) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
